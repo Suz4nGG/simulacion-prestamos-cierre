@@ -80,7 +80,6 @@ export default function Simulador () {
     setLoader(true)
     // & Se aceptan cantidades?
     console.log(e.target.innerText)
-    // e.target.innerText === 'Aceptar' ? setResponderSimulacion(true) : setResponderSimulacion(false)
     try {
       const  { statusCode, success, message } = await aceptarSimulacion({
         respuestaSimulacion: e.target.innerText === 'Aceptar' && true || e.target.innerText === 'Cancelar' && false,
@@ -98,7 +97,7 @@ export default function Simulador () {
       console.log(err)
     } finally {
       setLoader(false)
-      // removeLocalStorage({key: 'simulacionObtenida'})
+      removeLocalStorage({key: 'simulacionObtenida'})
     }
   }
 
@@ -110,7 +109,7 @@ export default function Simulador () {
     <div className='lg:col-start-3 lg:row-end-1 '>
       <DialogModal
         title={responseResponderCantidades?.message}
-        subTitle={'Serás redirigido al inicio...'}
+        subTitle={'Serás redirigido al inicio'}
         open={open} setOpen={setOpen}
         handleCancelar={!responseResponderCantidades?.success && handleReintentar}
         titleCancelar={!responseResponderCantidades?.success && 'Reitentar'}
