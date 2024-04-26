@@ -78,8 +78,6 @@ export default function Simulador () {
 
   const handleResponderCantidades = async (e) => {
     setLoader(true)
-    // & Se aceptan cantidades?
-    console.log(e.target.innerText)
     try {
       const  { statusCode, success, message } = await aceptarSimulacion({
         respuestaSimulacion: e.target.innerText === 'Aceptar' && true || e.target.innerText === 'Cancelar' && false,
