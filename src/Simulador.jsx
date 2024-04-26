@@ -4,17 +4,15 @@ import HeaderCard from './components/HeaderCard'
 import { useLocation, useParams } from 'wouter'
 import BodyDatos from './components/BodyDatos'
 import ItemsCard from './components/ItemsCard'
-import { regexComasCantidades, removeLocalStorage } from './helpers'
+import { removeLocalStorage } from './helpers'
 import Button from './components/Button'
 import './index.css'
+import { aceptarSimulacion, noAceptarSimulacion } from './services/simulacion.service'
+import { useState } from 'react'
+import Loader from './components/Loader'
+import DialogModal from './components/Dialog'
 
 const datosPrestamo = [
-  {
-    label: 'Intereses Préstamo Anterior',
-    name: 'interesesPrestamoAnterior',
-    icon: CurrencyDollarIcon,
-    value: 0,
-  },
   {
     label: 'Saldo Préstamo Anterior',
     name: 'saldoPrestamoAnterior',
@@ -49,7 +47,7 @@ const datosPrestamo = [
     label: 'Plazo',
     name: 'plazo',
     icon: ArrowTrendingDownIcon,
-    value: '12'
+    value: 0
   },
   {
     label: 'Intereses Nuevo Préstamo',
@@ -68,26 +66,58 @@ const datosPrestamo = [
 export default function Simulador () {
   const { derechohabienteStorage, simulacionStorage } = useLocalStorageData();
   const [, setLocation] = useLocation();
-
-  // * IDTablet
-  const params = useParams()
+  // const [responderSimulacion, setResponderSimulacion] = useState()
+  const [loader, setLoader] = useState(false)
+  const [responseResponderCantidades, setResponseResponderCantidades] = useState({})
+  const [open, setOpen] = useState(false)
 
     const simulacion = datosPrestamo.map(datoPrestamo => ({
     ...datoPrestamo,
     value: simulacionStorage[datoPrestamo?.name] || datoPrestamo?.value
   }));
 
-  const handleAceptarCantidades = () => {
-    console.log('Aceptar', params?.idTablet)
+  const handleResponderCantidades = async (e) => {
+    setLoader(true)
+    // & Se aceptan cantidades?
+    console.log(e.target.innerText)
+    // e.target.innerText === 'Aceptar' ? setResponderSimulacion(true) : setResponderSimulacion(false)
+    try {
+      const  { statusCode, success, message } = await aceptarSimulacion({
+        respuestaSimulacion: e.target.innerText === 'Aceptar' && true || e.target.innerText === 'Cancelar' && false,
+        numAfiliacion: derechohabienteStorage?.numAfiliacion,
+        tipoDerechohabiente: derechohabienteStorage?.tipoDerechohabiente
+      })
+      setResponseResponderCantidades({ statusCode, success, message})
+      if (success) {
+        setOpen(true)
+        setTimeout(() => {
+          setLocation('/')
+        }, 2000)
+      }
+    } catch (err) {
+      console.log(err)
+    } finally {
+      setLoader(false)
+      // removeLocalStorage({key: 'simulacionObtenida'})
+    }
   }
 
-  const handleRechazarCantidades = () => {
-    setLocation('/')
-    removeLocalStorage({key: 'simulacionObtenida'})
+  const handleReintentar = () => {
+    setOpen(false)
   }
 
   return (
-    <div className='lg:col-start-3 lg:row-end-1'>
+    <div className='lg:col-start-3 lg:row-end-1 '>
+      <DialogModal
+        title={responseResponderCantidades?.message}
+        subTitle={'Serás redirigido al inicio...'}
+        open={open} setOpen={setOpen}
+        handleCancelar={!responseResponderCantidades?.success && handleReintentar}
+        titleCancelar={!responseResponderCantidades?.success && 'Reitentar'}
+      />
+      <Loader
+        titleModal='Enviando respuesta...' open={loader} setOpen ={setLoader}
+      />
       <h2 className='sr-only'>Cálculo de Préstamo</h2>
       <div className='rounded-lg bg-zinc-50 shadow-sm ring-1 ring-gray-900/5'>
         <dl className='flex flex-wrap'>
@@ -105,20 +135,20 @@ export default function Simulador () {
           {
             simulacion?.map(datoPrestamo => (
               <ItemsCard
-                key={datoPrestamo?.name} 
-                title={datoPrestamo?.label} 
-                Icon={datoPrestamo?.icon} 
-                value={regexComasCantidades(datoPrestamo?.value || '')} />
+                key={datoPrestamo?.name}
+                title={datoPrestamo?.label}
+                Icon={datoPrestamo?.icon}
+                value={datoPrestamo?.value} />
             ))
           }
         </dl>
         <div className='w-full flex items-center'>
           <div className='px-6 py-8 w-2/4'>
             <Button
-              title='Aceptar Cantidades'
+              title='Aceptar'
               Icon={CheckIcon}
               styles='hover:shadow-green-500/40 shadow-green-500/20 bg-green-600'
-              handleButton={handleAceptarCantidades}
+              handleButton={handleResponderCantidades}
             />
           </div>
           <div className='px-6 py-8 w-2/4'>
@@ -126,7 +156,7 @@ export default function Simulador () {
               title='No Aceptar'
               Icon={XMarkIcon}
               styles='hover:shadow-red-500/40 shadow-red-500/20 bg-red-600'
-              handleButton={handleRechazarCantidades}
+              handleButton={handleResponderCantidades}
             />
           </div>
         </div>

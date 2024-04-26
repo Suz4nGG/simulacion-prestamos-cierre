@@ -4,7 +4,7 @@ import { v4 as uuidv4 } from 'uuid';
 import { useLocation } from 'wouter'
 import { useEffect, useState } from 'react'
 import Loader from './components/Loader';
-import { obtenerSimulacion } from './services/obtener-simulacion.service'
+import { obtenerSimulacion } from './services/simulacion.service'
 import { getLocalStorage, setLocalStorage } from './helpers';
 
 
@@ -17,7 +17,7 @@ export default function Inicio () {
 
   useEffect(() => {
     const storageIdTablet = getLocalStorage({key: 'idTablet'})
-    if (storageIdTablet === null )  {
+    if (storageIdTablet === null || storageIdTablet === "")  {
       setIdTablet(uuidv4())
       setLocalStorage({key: 'idTablet', storage: idTablet})
     } else {
@@ -29,13 +29,13 @@ export default function Inicio () {
   }, [])
 
   const handleSimulacion = async () => {
-    console.log('handle')
     setLoader(true)
     try {
       const {data, statusCode, success, message} = await obtenerSimulacion({idTablet})
       setResponse({message, success})
+      console.log(statusCode)
       if (statusCode === 200 && success) {
-        const {derechohabiente, simulacion} = data[0]
+        const {derechohabiente, simulacion} = data
         setLocalStorage({
           key: 'simulacionObtenida',
           storage: {
@@ -56,6 +56,18 @@ export default function Inicio () {
   return (
     <div className='bg-white'>
       <div className='relative isolate px-6 lg:px-8'>
+        <div
+          className="absolute inset-x-0 -top-40 -z-10 transform-gpu sm:-top-80"
+          aria-hidden="true"
+        >
+          <div
+            className="relative aspect-[1155/678] w-[36.125rem] -translate-x-1/2 rotate-[30deg] sm:left-[calc(50%-30rem)] sm:w-[72.1875rem] bg-[url('./assets/GRECA.png')] bg-no-repeat"
+            // style={{
+            //   clipPath:
+            //     'polygon(74.1% 44.1%, 100% 61.6%, 97.5% 26.9%, 85.5% 0.1%, 80.7% 2%, 72.5% 32.5%, 60.2% 62.4%, 52.4% 68.1%, 47.5% 58.3%, 45.2% 34.5%, 27.5% 76.7%, 0.1% 64.9%, 17.9% 100%, 27.6% 76.8%, 76.1% 97.7%, 74.1% 44.1%)',
+            // }}
+          />
+        </div>
         <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
           <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
             <div className='relative rounded-full px-6 py-4 text-sm leading-6 text-gray-600 ring-2 ring-pink-900/10 hover:ring-pink-900/20'>
@@ -74,13 +86,8 @@ export default function Inicio () {
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum saepe eveniet qui, in mollitia adipisci consequatur esse aut quasi dolores.
             </p>
             <div className='mt-10 flex items-center justify-center gap-x-6'>
-              <Button title='Consultar' Icon={CurrencyDollarIcon} handleButton={handleSimulacion} />
+              <Button title={!response?.success ?'Consultar nuevamente' : 'Consultar'} Icon={CurrencyDollarIcon} handleButton={handleSimulacion} />
             </div>
-            {
-              !response?.success && <div className='mt-10 flex items-center justify-center gap-x-6'>
-              <Button title='Consultar' Icon={CurrencyDollarIcon} handleButton={handleSimulacion} />
-            </div>
-            }
           </div>
         </div>
         <div
