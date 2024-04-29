@@ -1,13 +1,16 @@
-import { CheckIcon, XMarkIcon, CurrencyDollarIcon, BanknotesIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon } from '@heroicons/react/20/solid'
+import {
+  CheckIcon, XMarkIcon, CurrencyDollarIcon,
+  BanknotesIcon, ArrowTrendingUpIcon, ArrowTrendingDownIcon,
+  ArchiveBoxIcon,  CalendarDaysIcon } from '@heroicons/react/20/solid'
 import useLocalStorageData from './hooks/useLocalStorage'
 import HeaderCard from './components/HeaderCard'
-import { useLocation, useParams } from 'wouter'
+import { useLocation } from 'wouter'
 import BodyDatos from './components/BodyDatos'
 import ItemsCard from './components/ItemsCard'
 import { removeLocalStorage } from './helpers'
 import Button from './components/Button'
 import './index.css'
-import { aceptarSimulacion, noAceptarSimulacion } from './services/simulacion.service'
+import { aceptarSimulacion } from './services/simulacion.service'
 import { useState } from 'react'
 import Loader from './components/Loader'
 import DialogModal from './components/Dialog'
@@ -17,19 +20,19 @@ const datosPrestamo = [
   {
     label: 'Saldo Préstamo Anterior',
     name: 'saldoPrestamoAnterior',
-    icon: CurrencyDollarIcon,
+    icon: BanknotesIcon,
     value: 0,
   },
   {
     label: 'Fondo Garantía',
     name: 'fondoGarantia',
-    icon: CurrencyDollarIcon,
+    icon: ArchiveBoxIcon,
     value: 0,
   },
     {
     label: 'Prima Renovación',
     name: 'primaRenovacion',
-    icon: CurrencyDollarIcon,
+    icon: ArrowTrendingUpIcon,
     value: 0,
   },
     {
@@ -45,9 +48,9 @@ const datosPrestamo = [
     value: 0
   },
   {
-    label: 'Plazo',
+    label: 'Plazo (Meses)',
     name: 'plazo',
-    icon: ArrowTrendingDownIcon,
+    icon: CalendarDaysIcon,
     value: 0
   },
   {

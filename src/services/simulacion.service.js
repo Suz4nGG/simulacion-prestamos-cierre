@@ -33,12 +33,3 @@ export const aceptarSimulacion = async ({ respuestaSimulacion, numAfiliacion, ti
     return ERROR_SERVER
   }
 }
-
-export const noAceptarSimulacion = async () => {
-  try {
-    const response = await fetch()
-
-  } catch (err) {
-    return ERROR_SERVER
-  }
-}
