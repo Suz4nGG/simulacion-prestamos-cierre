@@ -11,6 +11,7 @@ import { aceptarSimulacion, noAceptarSimulacion } from './services/simulacion.se
 import { useState } from 'react'
 import Loader from './components/Loader'
 import DialogModal from './components/Dialog'
+import Layout from './components/Layout'
 
 const datosPrestamo = [
   {
@@ -104,60 +105,64 @@ export default function Simulador () {
   }
 
   return (
-    <div className='lg:col-start-3 lg:row-end-1 '>
-      <DialogModal
-        title={responseResponderCantidades?.message}
-        subTitle={'Serás redirigido al inicio'}
-        open={open} setOpen={setOpen}
-        handleCancelar={!responseResponderCantidades?.success && handleReintentar}
-        titleCancelar={!responseResponderCantidades?.success && 'Reitentar'}
-      />
-      <Loader
-        titleModal='Enviando respuesta...' open={loader} setOpen ={setLoader}
-      />
-      <h2 className='sr-only'>Cálculo de Préstamo</h2>
-      <div className='rounded-lg bg-zinc-50 shadow-sm ring-1 ring-gray-900/5'>
-        <dl className='flex flex-wrap'>
-          <HeaderCard
-            title='Cálculo de Préstamo'
-            tipoAfiliacion={derechohabienteStorage?.tipoDerechohabiente}
-            numAfiliacion={derechohabienteStorage?.numAfiliacion}
-            importePrestamo={simulacionStorage?.importePrestamo}
+    <Layout>
+      <div className='lg:col-start-3 lg:row-end-1'>
+        <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
+          <DialogModal
+            title={responseResponderCantidades?.message}
+            subTitle={'Serás redirigido al inicio'}
+            open={open} setOpen={setOpen}
+            handleCancelar={!responseResponderCantidades?.success && handleReintentar}
+            titleCancelar={!responseResponderCantidades?.success && 'Reitentar'}
           />
-          <BodyDatos
-            nombre={derechohabienteStorage?.nombre}
-            apellidoP={derechohabienteStorage?.paterno}
-            apellidoM={derechohabienteStorage?.materno}
+          <Loader
+            titleModal='Enviando respuesta...' open={loader} setOpen ={setLoader}
           />
-          {
-            simulacion?.map(datoPrestamo => (
-              <ItemsCard
-                key={datoPrestamo?.name}
-                title={datoPrestamo?.label}
-                Icon={datoPrestamo?.icon}
-                value={datoPrestamo?.value} />
-            ))
-          }
-        </dl>
-        <div className='w-full flex items-center'>
-          <div className='px-6 py-8 w-2/4'>
-            <Button
-              title='Aceptar'
-              Icon={CheckIcon}
-              styles='hover:shadow-green-500/40 shadow-green-500/20 bg-green-600'
-              handleButton={handleResponderCantidades}
-            />
-          </div>
-          <div className='px-6 py-8 w-2/4'>
-            <Button
-              title='No Aceptar'
-              Icon={XMarkIcon}
-              styles='hover:shadow-red-500/40 shadow-red-500/20 bg-red-600'
-              handleButton={handleResponderCantidades}
-            />
+          <h2 className='sr-only'>Cálculo de Préstamo</h2>
+          <div className='rounded-lg bg-zinc-50 shadow-sm ring-1 ring-gray-900/5'>
+            <dl className='flex flex-wrap'>
+              <HeaderCard
+                title='Cálculo de Préstamo'
+                tipoAfiliacion={derechohabienteStorage?.tipoDerechohabiente}
+                numAfiliacion={derechohabienteStorage?.numAfiliacion}
+                importePrestamo={simulacionStorage?.importePrestamo}
+              />
+              <BodyDatos
+                nombre={derechohabienteStorage?.nombre}
+                apellidoP={derechohabienteStorage?.paterno}
+                apellidoM={derechohabienteStorage?.materno}
+              />
+              {
+                simulacion?.map(datoPrestamo => (
+                  <ItemsCard
+                    key={datoPrestamo?.name}
+                    title={datoPrestamo?.label}
+                    Icon={datoPrestamo?.icon}
+                    value={datoPrestamo?.value} />
+                ))
+              }
+            </dl>
+            <div className='w-full flex items-center'>
+              <div className='px-6 py-8 w-2/4'>
+                <Button
+                  title='Aceptar'
+                  Icon={CheckIcon}
+                  styles='hover:shadow-green-500/40 shadow-green-500/20 bg-green-600'
+                  handleButton={handleResponderCantidades}
+                />
+              </div>
+              <div className='px-6 py-8 w-2/4'>
+                <Button
+                  title='No Aceptar'
+                  Icon={XMarkIcon}
+                  styles='hover:shadow-red-500/40 shadow-red-500/20 bg-red-600'
+                  handleButton={handleResponderCantidades}
+                />
+              </div>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Layout>
   )
 }
