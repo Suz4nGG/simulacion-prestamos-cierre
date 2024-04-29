@@ -107,7 +107,7 @@ export default function Simulador () {
   return (
     <Layout>
       <div className='lg:col-start-3 lg:row-end-1'>
-        <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
+        <div className='mx-auto max-w-2xl py-32 sm:pt-25 lg:py-56'>
           <DialogModal
             title={responseResponderCantidades?.message}
             subTitle={'Serás redirigido al inicio'}

@@ -27,7 +27,7 @@ export default function Inicio () {
     }
 
 
-  }, [])
+  }, [idTablet])
 
   const handleSimulacion = async () => {
     setLoader(true)
@@ -56,7 +56,7 @@ export default function Inicio () {
 
   return (
     <Layout>
-      <div className='mx-auto max-w-2xl py-32 sm:py-48 lg:py-56'>
+      <div className='mx-auto max-w-2xl pt-32 sm:pt-48 lg:pt-56'>
         <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
           <div className='relative rounded-full px-6 py-4 text-sm leading-6 text-gray-600 ring-2 ring-pink-900/10 hover:ring-pink-900/20'>
             Encuesta de satisfacción.{' '}
@@ -74,7 +74,7 @@ export default function Inicio () {
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum saepe eveniet qui, in mollitia adipisci consequatur esse aut quasi dolores.
           </p>
           <div className='mt-10 flex items-center justify-center gap-x-6'>
-            <Button title={!response?.success ?'Consultar nuevamente' : 'Consultar'} Icon={CurrencyDollarIcon} handleButton={handleSimulacion} />
+            <Button title={!response?.success ?'Intente consultar nuevamente' : 'Consultar'} Icon={CurrencyDollarIcon} handleButton={handleSimulacion} />
           </div>
         </div>
       </div>

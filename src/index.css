@@ -6,13 +6,12 @@
   max-width: 1180px;
   width: 100%;
   margin: 0 auto;
-  padding: 4rem;
+  padding: 6rem;
   text-align: center;
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   color-scheme: light dark;
-  /* color: rgba(255, 255, 255, 0.87); */
-  /* color: #242424; */
+  color: #242424;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
