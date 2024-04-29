@@ -35,11 +35,11 @@ export default function Loader ({ titleModal, open, setOpen }) {
                     <CurrencyDollarIcon className='animate-spin h-6 w-6 text-pink-800' aria-hidden='true' />
                   </div>
                   <div className='mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left'>
-                    <Dialog.Title as='h3' className='text-base font-semibold leading-6 text-gray-900'>
+                    <Dialog.Title as='h3' className='text-xl font-semibold leading-6 text-gray-900'>
                       {titleModal}
                     </Dialog.Title>
                     <div className='mt-2'>
-                      <p className='text-sm text-gray-500'>
+                      <p className='text-md text-gray-500'>
                         Espere un momento
                       </p>
                     </div>

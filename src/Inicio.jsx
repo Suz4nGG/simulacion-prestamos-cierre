@@ -14,7 +14,6 @@ export default function Inicio () {
   const [loader, setLoader] = useState(false)
   const [, setLocation] = useLocation();
   const [response, setResponse] = useState({message: '', success: true})
-  // const [paramsSimulacion, setParamsSimulacion] = useState([])
 
   useEffect(() => {
     const storageIdTablet = getLocalStorage({key: 'idTablet'})
@@ -25,8 +24,6 @@ export default function Inicio () {
       console.log('El ID ya se a agregado', idTablet)
       setIdTablet(storageIdTablet)
     }
-
-
   }, [idTablet])
 
   const handleSimulacion = async () => {
@@ -57,7 +54,7 @@ export default function Inicio () {
   return (
     <Layout>
       <div className='mx-auto max-w-2xl pt-32 sm:pt-48 lg:pt-56'>
-        <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
+        {/* <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
           <div className='relative rounded-full px-6 py-4 text-sm leading-6 text-gray-600 ring-2 ring-pink-900/10 hover:ring-pink-900/20'>
             Encuesta de satisfacción.{' '}
             <a href='#' className='font-semibold text-pink-800'>
@@ -65,12 +62,12 @@ export default function Inicio () {
               Contestar <span aria-hidden='true'>&rarr;</span>
             </a>
           </div>
-        </div>
+        </div> */}
         <div className='text-center'>
-          <h1 className='text-2xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
+          <h1 className='text-2xl font-bold tracking-tight text-gray-900 sm:text-5xl'>
             Bienvenido al Simulador de Préstamos
           </h1>
-          <p className='mt-6 text-md leading-8 text-gray-600'>
+          <p className='mt-6 text-xl leading-8 text-gray-600'>
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum saepe eveniet qui, in mollitia adipisci consequatur esse aut quasi dolores.
           </p>
           <div className='mt-10 flex items-center justify-center gap-x-6'>
@@ -78,6 +75,7 @@ export default function Inicio () {
           </div>
         </div>
       </div>
+      <p className='pt-10 text-white font-bold'>{idTablet}</p>
       <Loader
         titleModal='Obteniendo simulación...' open={loader} setOpen ={setLoader}
       />
