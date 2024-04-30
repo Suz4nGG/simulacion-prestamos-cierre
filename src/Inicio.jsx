@@ -54,15 +54,6 @@ export default function Inicio () {
   return (
     <Layout>
       <div className='mx-auto max-w-2xl pt-32 sm:pt-48 lg:pt-56'>
-        {/* <div className='hidden sm:mb-8 sm:flex sm:justify-center'>
-          <div className='relative rounded-full px-6 py-4 text-sm leading-6 text-gray-600 ring-2 ring-pink-900/10 hover:ring-pink-900/20'>
-            Encuesta de satisfacción.{' '}
-            <a href='#' className='font-semibold text-pink-800'>
-              <span className='absolute inset-0' aria-hidden='true' />
-              Contestar <span aria-hidden='true'>&rarr;</span>
-            </a>
-          </div>
-        </div> */}
         <div className='text-center'>
           <h1 className='text-2xl font-bold tracking-tight text-gray-900 sm:text-5xl'>
             Bienvenido al Simulador de Préstamos

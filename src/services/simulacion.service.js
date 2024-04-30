@@ -2,8 +2,6 @@ import { ObtenerSimulacion, ResponderSimulacion } from "../endpoints"
 const ERROR_SERVER = { success: false, message: 'Error de conexión con el servidor' }
 
 export const obtenerSimulacion = async ({ idTablet }) => {
-  console.log(idTablet)
-  console.log(`${ObtenerSimulacion}${idTablet}`)
   try {
     const response = await fetch(`${ObtenerSimulacion}${idTablet}`, {
       method: 'GET', headers: {
@@ -18,7 +16,6 @@ export const obtenerSimulacion = async ({ idTablet }) => {
 }
 
 export const aceptarSimulacion = async ({ respuestaSimulacion, numAfiliacion, tipoDerechohabiente }) => {
-  console.log(tipoDerechohabiente)
   try {
     const response = await fetch(ResponderSimulacion, {
       method: 'PUT',

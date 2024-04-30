@@ -1,8 +1,6 @@
 import { CreditCardIcon } from '@heroicons/react/20/solid'
 import { regexComasCantidades } from '../helpers'
 
-const LayoutItemsCard =({children}) => <div className=' mt-2 py-2 flex w-full flex-none gap-x-4 px-6 even:bg-gray-100'>{children}</div>
-
 export default function ItemsCard ({ title, value, Icon = CreditCardIcon }) {
   const isTitle = 'Importe Total a Pagar' === title || 'Intereses Nuevo Préstamo' === title
   const isPlazo = 'Plazo (Meses)' === title

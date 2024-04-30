@@ -1,4 +1,4 @@
-import { Fragment, useRef, useState } from 'react'
+import { Fragment } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import { CheckIcon, HomeIcon } from '@heroicons/react/24/outline'
 import Button from './Button'
@@ -6,7 +6,6 @@ import Button from './Button'
 
 export default function DialogModal({title, subTitle, handleAceptar, handleCancelar, titleAceptar, titleCancelar, open, setOpen}) {
 
-  const cancelButtonRef = useRef(null)
 
   return (
     <Transition.Root show={open} as={Fragment}>

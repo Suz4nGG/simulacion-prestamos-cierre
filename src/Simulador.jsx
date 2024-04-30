@@ -70,7 +70,6 @@ const datosPrestamo = [
 export default function Simulador () {
   const { derechohabienteStorage, simulacionStorage } = useLocalStorageData();
   const [, setLocation] = useLocation();
-  // const [responderSimulacion, setResponderSimulacion] = useState()
   const [loader, setLoader] = useState(false)
   const [responseResponderCantidades, setResponseResponderCantidades] = useState({})
   const [open, setOpen] = useState(false)
