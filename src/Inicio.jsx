@@ -10,7 +10,7 @@ import Layout from './components/Layout'
 
 
 export default function Inicio () {
-  const [idTablet, setIdTablet] = useState('')
+  const [idTablet, setIdTablet] = useState('');
   const [loader, setLoader] = useState(false)
   const [, setLocation] = useLocation();
   const [response, setResponse] = useState({message: '', success: true})
